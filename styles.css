@@ -1,0 +1,346 @@
+:root {
+  color-scheme: light;
+  --ink: #17202a;
+  --muted: #697386;
+  --panel: rgba(255, 255, 255, 0.88);
+  --panel-solid: #ffffff;
+  --line: rgba(23, 32, 42, 0.12);
+  --good: #138a58;
+  --good-soft: #d7f7e8;
+  --bad: #c43b3b;
+  --bad-soft: #ffe1dc;
+  --gold: #f3b632;
+  --sky: #55a8d8;
+  --violet: #7763d6;
+  --shadow: 0 18px 44px rgba(42, 47, 61, 0.18);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(85, 168, 216, 0.28), transparent 26%),
+    linear-gradient(135deg, #f8f3e7 0%, #eaf6f4 45%, #eef0fb 100%);
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  width: min(940px, 100%);
+  min-height: min(760px, calc(100vh - 44px));
+  display: grid;
+  grid-template-rows: auto minmax(320px, 1fr) auto;
+  gap: 18px;
+  position: relative;
+}
+
+.scorebar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.scorebar div {
+  min-height: 74px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 28px rgba(42, 47, 61, 0.08);
+  display: grid;
+  align-content: center;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.scorebar strong {
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1;
+}
+
+.arena {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(23, 32, 42, 0.035) 0,
+      rgba(23, 32, 42, 0.035) 1px,
+      transparent 1px,
+      transparent 34px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(23, 32, 42, 0.035) 0,
+      rgba(23, 32, 42, 0.035) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+  box-shadow: var(--shadow);
+  min-height: 360px;
+  padding: clamp(28px, 7vw, 72px);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+#burst,
+.symbol-cloud {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.symbol-cloud span {
+  position: absolute;
+  color: rgba(23, 32, 42, 0.11);
+  font-size: clamp(3rem, 11vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.symbol-cloud span:nth-child(1) {
+  left: 8%;
+  top: 14%;
+  transform: rotate(-12deg);
+}
+
+.symbol-cloud span:nth-child(2) {
+  right: 12%;
+  top: 10%;
+  transform: rotate(9deg);
+}
+
+.symbol-cloud span:nth-child(3) {
+  left: 15%;
+  bottom: 12%;
+  color: rgba(19, 138, 88, 0.14);
+  transform: rotate(15deg);
+}
+
+.symbol-cloud span:nth-child(4) {
+  right: 10%;
+  bottom: 13%;
+  color: rgba(196, 59, 59, 0.14);
+  transform: rotate(-10deg);
+}
+
+.symbol-cloud span:nth-child(5) {
+  left: 46%;
+  top: 7%;
+  color: rgba(119, 99, 214, 0.13);
+  transform: rotate(4deg);
+}
+
+.round-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 2.6vw, 1.1rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#equation {
+  width: min(100%, 720px);
+  min-height: clamp(110px, 22vw, 160px);
+  margin: 0;
+  padding: 18px;
+  border-radius: 8px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.74);
+  display: grid;
+  place-items: center;
+  font-size: clamp(2.45rem, 9vw, 6rem);
+  font-weight: 950;
+  line-height: 1.05;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  transition:
+    transform 170ms ease,
+    background-color 170ms ease;
+}
+
+#equation.pop {
+  transform: scale(1.035);
+}
+
+.feedback {
+  min-height: 32px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 850;
+  position: relative;
+  z-index: 1;
+}
+
+.feedback.good {
+  color: var(--good);
+}
+
+.feedback.bad {
+  color: var(--bad);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.choice {
+  height: clamp(92px, 18vw, 132px);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: var(--shadow);
+  display: grid;
+  place-items: center;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    filter 120ms ease;
+}
+
+.choice span {
+  width: clamp(68px, 13vw, 96px);
+  aspect-ratio: 1;
+  border: 6px solid currentColor;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.choice:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 52px rgba(42, 47, 61, 0.22);
+}
+
+.choice:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.choice:focus-visible,
+#playAgain:focus-visible {
+  outline: 4px solid rgba(243, 182, 50, 0.72);
+  outline-offset: 4px;
+}
+
+.choice-yes {
+  background: linear-gradient(145deg, #19a96d, #0e744e);
+}
+
+.choice-no {
+  background: linear-gradient(145deg, #e6574d, #a72f3a);
+}
+
+.result {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: min(440px, calc(100% - 28px));
+  transform: translate(-50%, -50%);
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-solid);
+  box-shadow: 0 28px 70px rgba(23, 32, 42, 0.28);
+  text-align: center;
+  z-index: 5;
+}
+
+.result h2 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 7vw, 3.2rem);
+}
+
+.result p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#playAgain {
+  min-height: 54px;
+  min-width: 150px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.answered-good #equation {
+  background: var(--good-soft);
+}
+
+.answered-bad #equation {
+  background: var(--bad-soft);
+}
+
+@media (max-width: 620px) {
+  body {
+    padding: 12px;
+  }
+
+  .game-shell {
+    min-height: calc(100vh - 24px);
+    gap: 12px;
+  }
+
+  .scorebar {
+    gap: 8px;
+  }
+
+  .scorebar div {
+    min-height: 62px;
+    padding: 9px 10px;
+  }
+
+  .arena {
+    min-height: 330px;
+    padding: 22px 12px;
+  }
+
+  #equation {
+    padding: 14px 8px;
+  }
+
+  .controls {
+    gap: 10px;
+  }
+}

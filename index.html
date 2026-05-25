@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Flash</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#138a58" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-live="polite">
+      <section class="scorebar" aria-label="Game status">
+        <div>
+          <span class="label">Score</span>
+          <strong id="score">0</strong>
+        </div>
+        <div>
+          <span class="label">Streak</span>
+          <strong id="streak">0</strong>
+        </div>
+        <div>
+          <span class="label">Time</span>
+          <strong id="time">60</strong>
+        </div>
+      </section>
+
+      <section class="arena" aria-label="Question arena">
+        <canvas id="burst" width="640" height="420" aria-hidden="true"></canvas>
+        <div class="symbol-cloud" aria-hidden="true">
+          <span>+</span>
+          <span>−</span>
+          <span>×</span>
+          <span>÷</span>
+          <span>=</span>
+        </div>
+        <p class="round-label" id="roundLabel">Question 1</p>
+        <h1 id="equation">8 + 4 = 12</h1>
+        <p class="feedback" id="feedback">Choose one</p>
+      </section>
+
+      <section class="controls" aria-label="Answer controls">
+        <button class="choice choice-yes" id="yesButton" type="button" aria-label="Equation is correct">
+          <span aria-hidden="true">✓</span>
+        </button>
+        <button class="choice choice-no" id="noButton" type="button" aria-label="Equation is wrong">
+          <span aria-hidden="true">✕</span>
+        </button>
+      </section>
+
+      <section class="result" id="result" hidden>
+        <h2>Time!</h2>
+        <p id="finalScore">You scored 0.</p>
+        <button id="playAgain" type="button">Play Again</button>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
